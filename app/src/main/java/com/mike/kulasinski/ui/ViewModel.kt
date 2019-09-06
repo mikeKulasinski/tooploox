@@ -1,8 +1,15 @@
 package com.mike.kulasinski.ui
 
+import com.mike.kulasinski.logic.SongState
+
 sealed class ViewModel {
     object Loading : ViewModel()
-    object Error : ViewModel()
-    object SoftError : ViewModel()
-    data class PostsArrived(val posts: List<SongModel>) : ViewModel()
+    // all sources failed
+    object LoadingProblem : ViewModel()
+
+    sealed class Informative : ViewModel() {
+        data class ProblemWithOneOfSources(val sourceType: SongState.SourceType) : Informative()
+    }
+
+    data class SongsArrived(val songs: List<SongModel>) : ViewModel()
 }
