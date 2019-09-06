@@ -1,8 +1,10 @@
 package com.mike.kulasinski.logic
 
+import android.app.Application
 import com.mike.kulasinski.common.ReducerWrapper
 import com.mike.kulasinski.logic.SongState.SourceType.LOCAL
 import com.mike.kulasinski.logic.SongState.SourceType.REMOTE
+import com.mike.kulasinski.logic.datasource.local.LocalDataSource
 import com.mike.kulasinski.logic.datasource.server.ServerDataSource
 import com.mike.kulasinski.logic.datasource.server.SongService
 import dagger.Module
@@ -43,12 +45,13 @@ class LogicModule {
     fun provideSongFeature(
         stateStore: Subject<SongState>,
         events: Subject<Any>,
-        songService: SongService
+        songService: SongService,
+        application: Application
     ) = SongFeature(
         actor = SongActor(
             dataSource = mapOf(
                 REMOTE to ServerDataSource(songService),
-                LOCAL to TestRemote()
+                LOCAL to LocalDataSource(application)
             ),
             reducer = ReducerWrapper(
                 reducer = SongReducer(),

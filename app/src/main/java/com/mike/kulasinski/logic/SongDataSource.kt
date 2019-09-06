@@ -15,22 +15,3 @@ interface SongDataSource : (SongDataSource.Request) -> Observable<SongDataSource
         object Problem : Response()
     }
 }
-
-class TestRemote : SongDataSource {
-    override fun invoke(request: SongDataSource.Request) = just(
-        SongDataSource.Response.Success(
-            listOf(Song("local", "ar", "123"))
-        )
-    ).cast(SongDataSource.Response::class.java)!!
-}
-
-class TestRemoteLong : SongDataSource {
-    override fun invoke(request: SongDataSource.Request) = just(
-        SongDataSource.Response.Success(
-            listOf(Song("remote", "ar", "321"))
-        )
-    )
-        .delay(5, TimeUnit.SECONDS)
-        .observeOn(AndroidSchedulers.mainThread())
-        .cast(SongDataSource.Response::class.java)!!
-}
