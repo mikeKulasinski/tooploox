@@ -42,8 +42,8 @@ class LocalDataSource(private val context: Context) : SongDataSource {
                         }
                 }
                 .map { SongDataSource.Response.Success(it) }
-                .observeOn(AndroidSchedulers.mainThread())
-//                                .onErrorReturnItem(Response.Problem)
                 .cast(SongDataSource.Response::class.java)
+                .onErrorReturnItem(SongDataSource.Response.Problem)
+                .observeOn(AndroidSchedulers.mainThread())
         }
 }
