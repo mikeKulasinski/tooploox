@@ -2,8 +2,8 @@ package com.mike.kulasinski.logic
 
 import com.mike.kulasinski.logic.SongEvent.SelectSource.*
 import com.mike.kulasinski.logic.SongEvent.Start
-import com.mike.kulasinski.logic.base.Actor
-import com.mike.kulasinski.logic.base.BaseFeature
+import com.mike.kulasinski.common.Actor
+import com.mike.kulasinski.common.BaseFeature
 import io.reactivex.Observable
 
 class SongFeature(

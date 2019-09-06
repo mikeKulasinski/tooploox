@@ -1,4 +1,4 @@
-package com.mike.kulasinski.logic.base
+package com.mike.kulasinski.common
 
 import io.reactivex.Completable
 import io.reactivex.Observable

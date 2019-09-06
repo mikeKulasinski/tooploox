@@ -2,7 +2,7 @@ package com.mike.kulasinski.logic
 
 import com.mike.kulasinski.logic.SongState.SourceType.LOCAL
 import com.mike.kulasinski.logic.SongState.SourceType.REMOTE
-import com.mike.kulasinski.logic.base.ReducerWrapper
+import com.mike.kulasinski.common.ReducerWrapper
 import dagger.Module
 import dagger.Provides
 import io.reactivex.subjects.BehaviorSubject

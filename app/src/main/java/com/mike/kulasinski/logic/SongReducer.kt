@@ -5,7 +5,7 @@ import com.mike.kulasinski.logic.SongEffect.SourceSelected.*
 import com.mike.kulasinski.logic.SongState.LoadStatus.*
 import com.mike.kulasinski.logic.SongState.SourceType.LOCAL
 import com.mike.kulasinski.logic.SongState.SourceType.REMOTE
-import com.mike.kulasinski.logic.base.Reducer
+import com.mike.kulasinski.common.Reducer
 
 class SongReducer : Reducer<SongState, SongEffect> {
     override fun invoke(state: SongState, effect: SongEffect): SongState = when (effect) {

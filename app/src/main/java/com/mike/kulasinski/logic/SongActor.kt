@@ -10,8 +10,8 @@ import com.mike.kulasinski.logic.SongState.LoadStatus.SUCCESS
 import com.mike.kulasinski.logic.SongState.SourceType
 import com.mike.kulasinski.logic.SongState.SourceType.LOCAL
 import com.mike.kulasinski.logic.SongState.SourceType.REMOTE
-import com.mike.kulasinski.logic.base.Actor
-import com.mike.kulasinski.logic.base.ReducerWrapper
+import com.mike.kulasinski.common.Actor
+import com.mike.kulasinski.common.ReducerWrapper
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Observable.empty
