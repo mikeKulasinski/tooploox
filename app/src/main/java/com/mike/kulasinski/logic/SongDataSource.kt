@@ -19,7 +19,7 @@ interface SongDataSource : (SongDataSource.Request) -> Observable<SongDataSource
 class TestRemote : SongDataSource {
     override fun invoke(request: SongDataSource.Request) = just(
         SongDataSource.Response.Success(
-            listOf(Song("ti", "ar", "123"))
+            listOf(Song("local", "ar", "123"))
         )
     ).cast(SongDataSource.Response::class.java)!!
 }
@@ -27,7 +27,7 @@ class TestRemote : SongDataSource {
 class TestRemoteLong : SongDataSource {
     override fun invoke(request: SongDataSource.Request) = just(
         SongDataSource.Response.Success(
-            listOf(Song("ti", "ar", "123"))
+            listOf(Song("remote", "ar", "321"))
         )
     )
         .delay(5, TimeUnit.SECONDS)

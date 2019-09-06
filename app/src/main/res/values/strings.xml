@@ -4,4 +4,6 @@
     <string name="source_remote">Remote</string>
     <string name="source_both">Both</string>
     <string name="source_header">Choose Data Source</string>
+    <string name="error_all">Problem with loading data from all sources</string>
+    <string name="error_partial">Problem with one of the sources, partial data available</string>
 </resources>

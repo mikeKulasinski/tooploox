@@ -23,7 +23,7 @@ sealed class SongEffect {
     sealed class SourceSelected : SongEffect() {
         object Remote : SourceSelected()
         object Local : SourceSelected()
-        object Both : SourceSelected()
+        object All : SourceSelected()
     }
 
     sealed class LoadSource : SongEffect() {

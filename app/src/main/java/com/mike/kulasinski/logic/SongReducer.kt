@@ -11,7 +11,7 @@ class SongReducer : Reducer<SongState, SongEffect> {
     override fun invoke(state: SongState, effect: SongEffect): SongState = when (effect) {
         Remote -> state.copy(currentSource = listOf(REMOTE))
         Local -> state.copy(currentSource = listOf(LOCAL))
-        Both -> state.copy(currentSource = listOf(REMOTE, LOCAL))
+        All -> state.copy(currentSource = listOf(REMOTE, LOCAL))
         is Started -> state.copy(
             loadStatus = changeStatus(
                 state = state,
@@ -31,6 +31,11 @@ class SongReducer : Reducer<SongState, SongEffect> {
                 state = state,
                 source = effect.source,
                 status = SUCCESS
+            ),
+            songs = createSongs(
+                state = state,
+                source = effect.source,
+                songs = effect.songs
             )
         )
     }
@@ -39,10 +44,21 @@ class SongReducer : Reducer<SongState, SongEffect> {
         state: SongState,
         source: SongState.SourceType,
         status: SongState.LoadStatus
-    ): MutableMap<SongState.SourceType, SongState.LoadStatus> {
+    ): Map<SongState.SourceType, SongState.LoadStatus> {
         return state
             .loadStatus
             .toMutableMap()
             .apply { put(source, status) }
+    }
+
+    private fun createSongs(
+        state: SongState,
+        source: SongState.SourceType,
+        songs: List<Song>
+    ): Map<SongState.SourceType, List<Song>> {
+        return state
+            .songs
+            .toMutableMap()
+            .apply { put(source, songs) }
     }
 }
