@@ -1,20 +1,38 @@
 package com.mike.kulasinski.logic
 
+import com.mike.kulasinski.common.ReducerWrapper
 import com.mike.kulasinski.logic.SongState.SourceType.LOCAL
 import com.mike.kulasinski.logic.SongState.SourceType.REMOTE
-import com.mike.kulasinski.common.ReducerWrapper
+import com.mike.kulasinski.logic.datasource.server.ServerDataSource
+import com.mike.kulasinski.logic.datasource.server.SongService
 import dagger.Module
 import dagger.Provides
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 class LogicModule {
+    companion object {
+        const val API_BASE_URL = "https://itunes.apple.com"
+    }
+
     @Provides
     @Singleton
     fun provideEvents(): Subject<Any> = PublishSubject.create<Any>()
+
+    @Provides
+    @Singleton
+    fun provideSongService(): SongService = Retrofit.Builder()
+        .baseUrl(API_BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(SongService::class.java)
 
     @Provides
     @Singleton
@@ -24,11 +42,12 @@ class LogicModule {
     @Singleton
     fun provideSongFeature(
         stateStore: Subject<SongState>,
-        events: Subject<Any>
+        events: Subject<Any>,
+        songService: SongService
     ) = SongFeature(
         actor = SongActor(
             dataSource = mapOf(
-                REMOTE to TestRemoteLong(),
+                REMOTE to ServerDataSource(songService),
                 LOCAL to TestRemote()
             ),
             reducer = ReducerWrapper(
